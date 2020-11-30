@@ -1,0 +1,29 @@
+Dia 24/11/20
+
+-install anaconda (lauch anaconda prompt to intall pythorch)
+-install pythorch
+-Testado um primeiro exemplo para ver se a instalação está correta
+-analise de codigo com CNN
+
+Dia 25/11/20
+
+-usar keras ou numpy?
+numpy parece o correto
+-analise de um código exemplo
+	Passos:
+		-Tratatamentos de dados é o primeiro a ser feito (lógico ahaha)
+		-Implementar as camadas convolucionais
+		-Função para treinar o modelo
+
+Dia 26/11/20
+
+-criação de uma simples CNN em pythorch
+-analise de como criar um data set custom
+
+Dia 28/11/20
+
+-script para recolher imagens
+
+Dia 30/11/20
+
+-guardar imagens recolhidas num ficheiro csv devidamente classificadas
