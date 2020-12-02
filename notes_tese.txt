@@ -27,3 +27,12 @@ Dia 28/11/20
 Dia 30/11/20
 
 -guardar imagens recolhidas num ficheiro csv devidamente classificadas
+
+Dia 1/12/20
+
+-Entender como os parametros das funções se relacionam
+
+Dia 2/12/20
+
+-Construção de uma parte do modelo CNN
+-forma de importar o dataset para o modelo
