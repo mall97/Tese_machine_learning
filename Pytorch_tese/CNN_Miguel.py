@@ -62,7 +62,23 @@ test_loader = DataLoader(dataset=test_set, batch_size=batch_size, shuffle=True)
 model = CNN().to(device)
 
 #loss and optimizer
-criterion = nn.CrossEntropyLoss()
-optimizer = optim.Adam(model.parameters(), lr=learning_rate)
+criterion = nn.CrossEntropyLoss()                                # is used for multiclass classification
+optimizer = optim.Adam(model.parameters(), lr=learning_rate)    #implements various optimization algorithms (Stochastic Optimization)
 
 #Train network
+for epoch in range(num_epochs):
+    for batch_idx, (data, targets) in enumerate(train_loader):      #train loader divide by image and classification (data=image, targets=classification), batch_idx=number of the cycle
+        #get data to cuda
+        data = data.to(device=device)
+        targets =targets.to(device=device)
+
+        #forward ->compute the output during forward pass
+        scores = model(data)
+        loss = criterion(scores)        
+
+        #backward ->compute the gradient to be propagated
+        optimizer.zero_grad()
+        loss.backward()
+
+        #gradient descent 
+        optimizer.step()

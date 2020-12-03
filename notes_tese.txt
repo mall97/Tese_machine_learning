@@ -36,3 +36,7 @@ Dia 2/12/20
 
 -Construção de uma parte do modelo CNN
 -forma de importar o dataset para o modelo
+
+Dia 3/12/20
+
+-Como treina a rede
