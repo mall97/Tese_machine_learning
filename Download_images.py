@@ -70,4 +70,4 @@ class webscrapping:
 if __name__=='__main__':
     test=webscrapping()
     #test.my_download()
-    test.csv_file()
+    test.create_csv_file()

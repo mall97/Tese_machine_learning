@@ -3,6 +3,9 @@ import pandas as pd
 import torch
 from torch.utils.data import Dataset
 from skimage import io
+import torchvision.transforms as transforms
+from PIL import Image
+
 
 class MyDataset(Dataset):
     def __init__(self, csv_file, dir, transform=None):
@@ -16,7 +19,7 @@ class MyDataset(Dataset):
     def __getitem__(self, index):
         img_path = os.path.join(self.dir, self.data.iloc[index, 0])
         image = io.imread(img_path)
-        y_label = torch.tesnint(self.data.iloc[index, 1])
+        y_label = torch.tensor(int(self.data.iloc[index, 1]))
         if self.transform:
             image=self.transform(image)
         return (image, y_label)

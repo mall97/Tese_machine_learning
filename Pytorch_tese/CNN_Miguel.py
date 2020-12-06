@@ -13,12 +13,12 @@ from MyDataset import MyDataset
 class CNN(nn.Module):
     #self.conv1-> Kernel size sets the filter size, out_channels sets the number of filters
     #self.fc1-> out_features sets the size of the output tensor
-    def __init__(self, in_channels=1, num_classes=10):         #in_channels=color of image, num_classes=number of features
+    def __init__(self, in_channels=3, num_classes=1):         #in_channels=color of image, num_classes=number of features
         super(CNN, self).__init__()
         self.conv1 = nn.Conv2d(in_channels=1, out_channels=8, kernel_size=(3,3), stride=(1,1), padding=(1,1))      #fist convulotional layer
         self.pool = nn.MaxPool2d(kernel_size=(2,2), stride=(2,2))                                                  #polling
         self.conv2 = nn.Conv2d(in_channels=8, out_channels=16, kernel_size=(3,3), stride=(1,1), padding=(1,1))
-        self.fc1 = nn.Linear(in_features=16*7*7, out_features=num_classes)                                         #fuly connected layer, 7*7 are the higth and width of each of 16 output channels 
+        self.fc1 = nn.Linear(in_features=16*70*70, out_features=num_classes)                                         #fuly connected layer, 7*7 are the higth and width of each of 16 output channels 
 
     
     def forward(self, x):
@@ -31,7 +31,7 @@ class CNN(nn.Module):
         x = self.pool(x)
 
         #hidden linear layer
-        x = x.reshape(-1, 16*7*7)
+        x = x.reshape(-1, 16*70*70)
         x = self.fc1(x)
 
         return x                                                                                
@@ -53,8 +53,8 @@ batch_size = 64
 num_epochs = 1 
 
 #load data
-dataset = MyDataset(csv_file="example.csv", dir="example", transform=transforms.ToTensor())
-train_set, test_set = torch.utils.ramdom_split(dataset, [1000, 200])     #divide the dataset in 1000  for train_set and 200 to test_set
+dataset = MyDataset(csv_file='C:\\Users\\Miguel\\Desktop\\Tese\\data.csv', dir='C:\\Users\\Miguel\\Desktop\\Tese\\downloads', transform=transforms.ToTensor())
+train_set, test_set = torch.utils.data.random_split(dataset, [500, 36])     #divide the dataset in 1000  for train_set and 200 to test_set
 train_loader = DataLoader(dataset=train_set, batch_size=batch_size, shuffle=True)
 test_loader = DataLoader(dataset=test_set, batch_size=batch_size, shuffle=True)
 
