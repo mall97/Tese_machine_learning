@@ -39,4 +39,9 @@ Dia 2/12/20
 
 Dia 3/12/20
 
--Como treina a rede
+-Como treinar a rede
+
+Dia 4/12/20
+
+Modelo criado com  sucesso, investigar como salvar o modelo treinado
+

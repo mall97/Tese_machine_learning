@@ -8,7 +8,7 @@ def my_resize():
         try:
             image = Image.open(f'C:\\Users\\Miguel\\Desktop\\Tese\\downloads\\cat{i}.jpg')
             new_image = image.resize((280, 280))
-            new_image.save(f'C:\\Users\\Miguel\\Desktop\\Tese\\downloads\\cat{i}.jpg')
+            new_image.save(f'C:\\Users\\Miguel\\Desktop\\Tese\\new_size\\cat{i}.jpg')
         except:
             print("erro")
 

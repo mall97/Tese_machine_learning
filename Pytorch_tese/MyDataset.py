@@ -4,7 +4,6 @@ import torch
 from torch.utils.data import Dataset
 from skimage import io
 import torchvision.transforms as transforms
-from PIL import Image
 
 
 class MyDataset(Dataset):
