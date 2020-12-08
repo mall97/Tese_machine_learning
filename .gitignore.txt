@@ -1,5 +1,5 @@
-**/__pycache__
-**/Pytorch_tese/model.pth
-**/downloads
-**/new_size
-*.csv
+*/__pycache__
+/Pytorch_tese/model.pth
+downloads/
+new_size/
+.csv
