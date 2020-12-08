@@ -11,32 +11,30 @@ import argparse
 import csv
 
 parser = argparse.ArgumentParser(description='Download of images for training')
-parser.add_argument('--obj', type=str ,help='object type / thing /animal that you search?')
+parser.add_argument('--obj', type=str, default= None ,help='object type / thing /animal that you search?')
 args = parser.parse_args()
-
-
-DRIVER_PATH='C:\\Users\\Miguel\\chromedriver.exe'
-BROWSER=webdriver.Chrome(executable_path=DRIVER_PATH)
 
 
 class webscrapping:
     def my_download(self):
+        DRIVER_PATH='C:\\Users\\Miguel\\chromedriver.exe'
+        browser=webdriver.Chrome(executable_path=DRIVER_PATH)
         url= 'https://www.google.com/imghp?hl=pt-pt'
-        BROWSER.get(url)
-        BROWSER.implicitly_wait(5)
-        search=BROWSER.find_element_by_name('q')
+        browser.get(url)
+        browser.implicitly_wait(5)
+        search=browser.find_element_by_name('q')
         search.send_keys(args.obj)
         search.send_keys(Keys.ENTER)
-        BROWSER.implicitly_wait(5)
+        browser.implicitly_wait(5)
         value = 0
         for i in range(40):
-            BROWSER.execute_script('scrollBy("+ str(value) +",+1000);')
+            browser.execute_script('scrollBy("+ str(value) +",+1000);')
             value += 1000
             time.sleep(3)
 
         time.sleep(20)
         
-        elem1 = BROWSER.find_element_by_id('islmp')
+        elem1 = browser.find_element_by_id('islmp')
         sub = elem1.find_elements_by_tag_name('img')
 
         try:
@@ -60,7 +58,7 @@ class webscrapping:
                 print('fail')
 
     def create_csv_file(self):
-        entries = os.listdir('downloads')
+        entries = os.listdir('new_size')
         with open('data.csv', 'w', newline='') as file:
             filewriter = csv.writer(file) 
             for entrie in entries:
