@@ -18,7 +18,10 @@ class CNN(nn.Module):
         self.conv1 = nn.Conv2d(in_channels=3, out_channels=8, kernel_size=(3,3), stride=(1,1), padding=(1,1))      #fist convulotional layer
         self.pool = nn.MaxPool2d(kernel_size=(2,2), stride=(2,2))                                                  #polling
         self.conv2 = nn.Conv2d(in_channels=8, out_channels=16, kernel_size=(3,3), stride=(1,1), padding=(1,1))
-        self.fc1 = nn.Linear(in_features=16*70*70, out_features=num_classes)                                         #fuly connected layer, 7*7 are the higth and width of each of 16 output channels 
+        self.pool2 = nn.MaxPool2d(kernel_size=(3,3), stride=(6,6))
+        self.fc1 = nn.Linear(in_features=16*23*23, out_features=3920)                                         #fuly connected layer, 7*7 are the higth and width of each of 16 output channels 
+        self.fc2 = nn.Linear(in_features=3920, out_features=196)
+        self.out = nn.Linear(in_features=196, out_features=num_classes)
 
     
     def forward(self, x):
@@ -28,11 +31,13 @@ class CNN(nn.Module):
 
         #hidden conv layer
         x = F.relu(self.conv2(x))
-        x = self.pool(x)
+        x = self.pool2(x)
 
-        #hidden linear layer
-        x = x.reshape(-1, 16*70*70)
-        x = self.fc1(x)
+        #hidden linear layers
+        x = x.reshape(-1, 16*23*23)
+        x = F.relu(self.fc1(x))
+        x = F.relu(self.fc2(x))
+        x = self.out(x)
 
         return x                                                                                
 
@@ -53,7 +58,7 @@ batch_size = 64
 num_epochs = 1 
 
 #load data
-dataset = MyDataset(csv_file='C:\\Users\\Miguel\\Desktop\\Tese\\data.csv', dir='C:\\Users\\Miguel\\Desktop\\Tese\\new_size', transform=transforms.ToTensor())
+dataset = MyDataset(csv_file='C:\\Users\\Miguel\\Desktop\\Tese_machine_learning\\data.csv', dir='C:\\Users\\Miguel\\Desktop\\Tese_machine_learning\\new_size', transform=transforms.ToTensor())
 train_set, test_set = torch.utils.data.random_split(dataset, [499, 21])     #divide the dataset in 1000  for train_set and 200 to test_set
 train_loader = DataLoader(dataset=train_set, batch_size=batch_size, shuffle=True)
 test_loader = DataLoader(dataset=test_set, batch_size=batch_size, shuffle=True)
