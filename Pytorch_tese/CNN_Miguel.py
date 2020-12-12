@@ -74,6 +74,7 @@ for epoch in range(num_epochs):
     for batch_idx, (data, targets) in enumerate(train_loader):      #train loader divide by image and classification (data=image, targets=classification), batch_idx=number of the cycle
         #get data to cuda
         data = data.to(device=device)
+        print(data)
         targets =targets.to(device=device)
         #forward ->compute the output during forward pass
         scores = model(data)
