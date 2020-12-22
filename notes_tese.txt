@@ -43,5 +43,20 @@ Dia 3/12/20
 
 Dia 4/12/20
 
-Modelo criado com  sucesso, investigar como salvar o modelo treinado
+-Modelo criado com  sucesso, investigar como salvar o modelo treinado
+
+Dia 16/12/20
+
+-Instalação TensorFlow
+-Inicio da investigação de tensorflow
+
+Dia 17/12/20
+
+-Primeiro codigo
+-Algumas ideias para comparar diferentes metodos
+
+Dia 21/12/20
+
+-ver regularização e dropouts (pode ser importante)
+
 
