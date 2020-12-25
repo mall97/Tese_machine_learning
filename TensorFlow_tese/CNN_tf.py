@@ -42,7 +42,7 @@ def my_model():
     x = keras.activations.relu(x)
     x = layers.MaxPooling2D(2)(x)
 
-    x = layers.Conv2D(288, 3, padding="same", kernel_regularizer=regularizers.l2(0.01),)(x)
+    x = layers.Conv2D(144, 3, padding="same", kernel_regularizer=regularizers.l2(0.01),)(x)
     x = layers.BatchNormalization()(x)
     x = keras.activations.relu(x)
     x = layers.Flatten()(x)
@@ -64,7 +64,19 @@ model.compile(
 )
 
 print('train')
-model.fit(x_train, y_train, batch_size=32, epochs=10, verbose=2)
+model.fit(x_train, y_train, batch_size=32, epochs=1, verbose=2)
+
+model.save("my_model")
+
+
+# Convert the model
+converter = tf.lite.TFLiteConverter.from_saved_model("my_model") # path to the SavedModel directory
+tflite_model = converter.convert()
+
+# Save the model.
+with open('model.tflite', 'wb') as f:
+  f.write(tflite_model)
+
 print('test')
 model.evaluate(x_test, y_test, batch_size=64, verbose=2)
 
