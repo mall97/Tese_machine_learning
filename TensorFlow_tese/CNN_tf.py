@@ -56,28 +56,27 @@ def my_model():
     model = keras.Model(inputs=inputs, outputs=outputs)
     return model
 
-model=my_model()
-model.compile(
-    loss=keras.losses.SparseCategoricalCrossentropy(from_logits=True),
-    optimizer=keras.optimizers.Adam(lr=0.001),
-    metrics=["accuracy"],
-)
+with tf.device('/gpu:0'):
+    model=my_model()
+    model.compile(
+        loss=keras.losses.SparseCategoricalCrossentropy(from_logits=True),
+        optimizer=keras.optimizers.Adam(lr=0.001),
+        metrics=["accuracy"],
+    )
 
-print('train')
-model.fit(x_train, y_train, batch_size=32, epochs=1, verbose=2)
+    print('train')
+    model.fit(x_train, y_train, batch_size=32, epochs=1, verbose=2)
+    print('test')
+    model.evaluate(x_test, y_test, batch_size=64, verbose=2)
+
 
 model.save("my_model")
 
 
-# Convert the model
+# Convert the model and Save the model.
 converter = tf.lite.TFLiteConverter.from_saved_model("my_model") # path to the SavedModel directory
 tflite_model = converter.convert()
-
-# Save the model.
 with open('model.tflite', 'wb') as f:
   f.write(tflite_model)
-
-print('test')
-model.evaluate(x_test, y_test, batch_size=64, verbose=2)
 
 #conda activate tf
