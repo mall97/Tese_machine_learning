@@ -15,7 +15,7 @@ class CNN(nn.Module):
     #self.fc1-> out_features sets the size of the output tensor
     def __init__(self, in_channels=3, num_classes=10):         #in_channels=color of image, num_classes=number of features
         super(CNN, self).__init__()
-        self.conv1 = nn.Conv1d(in_channels=3, out_channels=8, kernel_size=(3,3), stride=(1,1), padding=(1,1))      #fist convulotional layer
+        self.conv1 = nn.Conv2d(in_channels=3, out_channels=8, kernel_size=(3,3), stride=(1,1), padding=(1,1))      #fist convulotional layer
         self.bn1 = nn.BatchNorm1d(num_features=8)
         self.pool = nn.MaxPool2d(kernel_size=(2,2), stride=(2,2))                                                  #polling
         self.conv2 = nn.Conv2d(in_channels=8, out_channels=16, kernel_size=(3,3), stride=(1,1), padding=(1,1))
