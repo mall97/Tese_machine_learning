@@ -13,13 +13,13 @@ from MyDataset import MyDataset
 class CNN(nn.Module):
     #self.conv1-> Kernel size sets the filter size, out_channels sets the number of filters
     #self.fc1-> out_features sets the size of the output tensor
-    def __init__(self, in_channels=3, num_classes=10):         #in_channels=color of image, num_classes=number of features
+    def __init__(self, in_channels=3, num_classes=10):         #in_channels=color of image (node number), num_classes=number of features
         super(CNN, self).__init__()
         self.conv1 = nn.Conv2d(in_channels=3, out_channels=8, kernel_size=(3,3), stride=(1,1), padding=(1,1))      #fist convulotional layer
-        self.bn1 = nn.BatchNorm1d(num_features=8)
+        self.bn1 = nn.BatchNorm2d(num_features=8)
         self.pool = nn.MaxPool2d(kernel_size=(2,2), stride=(2,2))                                                  #polling
         self.conv2 = nn.Conv2d(in_channels=8, out_channels=16, kernel_size=(3,3), stride=(1,1), padding=(1,1))
-        self.bn2 = nn.BatchNorm1d(num_features=16)
+        self.bn2 = nn.BatchNorm2d(num_features=16)
         self.pool2 = nn.MaxPool2d(kernel_size=(3,3), stride=(6,6))
         self.fc1 = nn.Linear(in_features=16*3*3, out_features=100)                                         #fuly connected layer, 7*7 are the higth and width of each of 16 output channels 
         self.fc2 = nn.Linear(in_features=100, out_features=50)
