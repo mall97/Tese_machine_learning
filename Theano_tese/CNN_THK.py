@@ -48,6 +48,45 @@ model = Sequential([
     ]
     )
 
+model2 = Sequential([
+        layers.Conv2D(8, 3, padding="same", input_shape=(32, 32, 3)),
+        layers.BatchNormalization(),
+        layers.Activation('relu'),
+        layers.MaxPooling2D(2),
+
+        layers.Conv2D(16, 3, padding="same"),      #mudar nós
+        layers.BatchNormalization(),
+        layers.Activation('relu'),
+        layers.Flatten(),
+
+
+        layers.Dense(100, activation="relu"),
+        layers.Dropout(0.2),
+        layers.Dense(50, activation="relu"),
+        layers.Dropout(0.2),
+        layers.Dense(10),
+    ]
+    )
+
+model3 = Sequential([
+        layers.Conv2D(8, 3, padding="same", input_shape=(32, 32, 3)),
+        layers.BatchNormalization(),
+        layers.Activation('relu'),
+        layers.MaxPooling2D(2),
+
+        layers.Conv2D(16, 3, padding="same"),       #mudar nós
+        layers.BatchNormalization(),
+        layers.Activation('relu'),
+        layers.MaxPooling2D(2),
+        layers.Flatten(),
+
+        layers.Dense(100, activation="relu"),
+        layers.Dropout(0.2),
+        layers.Dense(10),
+    ]
+    )
+
+
 model.compile(loss='categorical_crossentropy',
               optimizer='adam',
               metrics=['accuracy'])

@@ -8,7 +8,6 @@ from tensorflow.keras import layers, regularizers
 from tensorflow.keras.datasets import cifar10  
 
 physical_devices = tf.config.list_physical_devices("GPU")
-print(physical_devices)
 #tf.config.experimental.set_memory_growth(physical_devices[0], True)
 
 (x_train, y_train), (x_test, y_test) = cifar10.load_data()
@@ -55,6 +54,52 @@ def my_model():
     
     model = keras.Model(inputs=inputs, outputs=outputs)
     return model
+
+
+def my_model2():
+    inputs = keras.Input(shape=(32, 32, 3))
+    # num of output, kernel size
+    x = layers.Conv2D(8, 3, padding="same", kernel_regularizer=regularizers.l2(0.01),)(inputs)
+    x = layers.BatchNormalization()(x)
+    x = keras.activations.relu(x)
+    x = layers.MaxPooling2D(2)(x)
+
+    x = layers.Conv2D(16, 3, padding="same", kernel_regularizer=regularizers.l2(0.01),)(x)     #mudar nós
+    x = layers.BatchNormalization()(x)
+    x = keras.activations.relu(x)
+    x = layers.Flatten()(x)
+
+    x = layers.Dense(100, activation="relu", kernel_regularizer=regularizers.l2(0.01),)(x)
+    x = layers.Dropout(0.2)(x)
+    x = layers.Dense(50, activation="relu", kernel_regularizer=regularizers.l2(0.01),)(x)
+    x = layers.Dropout(0.2)(x)
+    outputs = layers.Dense(10)(x)
+    
+    model = keras.Model(inputs=inputs, outputs=outputs)
+    return model
+
+def my_model3():
+    inputs = keras.Input(shape=(32, 32, 3))
+    # num of output, kernel size
+    x = layers.Conv2D(8, 3, padding="same", kernel_regularizer=regularizers.l2(0.01),)(inputs)
+    x = layers.BatchNormalization()(x)
+    x = keras.activations.relu(x)
+    x = layers.MaxPooling2D(2)(x)
+
+    x = layers.Conv2D(16, 3, padding="same", kernel_regularizer=regularizers.l2(0.01),)(x)
+    x = layers.BatchNormalization()(x)
+    x = keras.activations.relu(x)
+    x = layers.MaxPooling2D(2)(x)
+    x = layers.Flatten()(x)
+
+    x = layers.Dense(100, activation="relu", kernel_regularizer=regularizers.l2(0.01),)(x)
+    x = layers.Dropout(0.2)(x)
+    outputs = layers.Dense(10)(x)
+    
+    model = keras.Model(inputs=inputs, outputs=outputs)
+    return model
+
+
 
 with tf.device('/gpu:0'):
     model=my_model()

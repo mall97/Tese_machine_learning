@@ -21,9 +21,16 @@ class CNN(nn.Module):
         self.conv2 = nn.Conv2d(in_channels=8, out_channels=16, kernel_size=(3,3), stride=(1,1), padding=(1,1))
         self.bn2 = nn.BatchNorm2d(num_features=16)
         self.pool2 = nn.MaxPool2d(kernel_size=(3,3), stride=(6,6))
-        self.fc1 = nn.Linear(in_features=16*3*3, out_features=100)                                         #fuly connected layer, 7*7 are the higth and width of each of 16 output channels 
+        
+        self.conv3 = nn.Conv2d(in_channels=16, out_channels=144, kernel_size=(3,3), stride=(1,1), padding=(1,1))
+        self.bn3 = nn.BatchNorm2d(num_features=144)
+        self.pool3 = nn.MaxPool2d(kernel_size=(3,3), stride=(6,6))
+
+        self.fc1 = nn.Linear(in_features=144*1*1, out_features=100)                                         #fuly connected layer, 7*7 are the higth and width of each of 16 output channels 
         self.fc2 = nn.Linear(in_features=100, out_features=50)
+        self.fc3 = nn.Linear(in_features=16*3*3, out_features=100)
         self.out = nn.Linear(in_features=50, out_features=num_classes)
+        self.out2 = nn.Linear(in_features=100, out_features=num_classes)
         self.drop = torch.nn.Dropout(0.2)
 
     
@@ -36,8 +43,12 @@ class CNN(nn.Module):
         x = F.relu(self.bn2(self.conv2(x)))
         x = self.pool2(x)
 
+        #hidden conv layer
+        x = F.relu(self.bn3(self.conv3(x)))
+        x = self.pool3(x)
+
         #hidden linear layers
-        x = x.reshape(-1, 16*3*3)
+        x = x.reshape(-1, 144*1*1)
         x = F.relu(self.fc1(x))
         x = self.drop(x)
         x = F.relu(self.fc2(x))
@@ -45,6 +56,42 @@ class CNN(nn.Module):
         x = self.out(x)
 
         return x                                                                                
+
+    def forward2(self, x):
+        #hidden conv layer
+        x = F.relu(self.bn1(self.conv1(x)))
+        x = self.pool(x)
+        
+        #hidden conv layer
+        x = F.relu(self.bn2(self.conv2(x)))
+        x = self.pool2(x)
+
+        #hidden linear layers
+        x = x.reshape(-1, 16*3*3)
+        x = F.relu(self.fc3(x))
+        x = self.drop(x)
+        x = F.relu(self.fc2(x))
+        x = self.drop(x)
+        x = self.out(x)
+
+        return x
+
+    def forward3(self, x):
+        #hidden conv layer
+        x = F.relu(self.bn1(self.conv1(x)))
+        x = self.pool(x)
+        
+        #hidden conv layer
+        x = F.relu(self.bn2(self.conv2(x)))
+        x = self.pool2(x)
+
+        #hidden linear layers
+        x = x.reshape(-1, 16*3*3)
+        x = F.relu(self.fc3(x))
+        x = self.drop(x)
+        x = self.out2(x)
+
+        return x  
 
 #model = CNN()
 #x = torch.randn(64, 1, 28, 28)
