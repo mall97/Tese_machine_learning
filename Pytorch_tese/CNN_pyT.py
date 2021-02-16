@@ -7,6 +7,7 @@ import torchvision.datasets as datasets
 import torchvision.transforms as transforms
 from torch.utils.data import DataLoader
 from MyDataset import MyDataset
+import time
 
 
 #Create CNN
@@ -107,7 +108,7 @@ in_channels = 1
 num_classes = 10
 learning_rate = 0.001
 batch_size = 32
-num_epochs = 80 
+num_epochs = 20 
 
 #load data
 #dataset = MyDataset(csv_file='C:\\Users\\Miguel\\Desktop\\Tese_machine_learning\\data.csv', dir='C:\\Users\\Miguel\\Desktop\\Tese_machine_learning\\new_size', transform=transforms.ToTensor())
@@ -129,6 +130,7 @@ criterion = nn.CrossEntropyLoss()                                # is used for m
 optimizer = optim.Adam(model.parameters(), lr=learning_rate)    #implements various optimization algorithms (Stochastic Optimization)
 
 #Train network
+start = time.time()
 for epoch in range(num_epochs):
     for batch_idx, (data, targets) in enumerate(train_loader):      #train loader divide by image and classification (data=image, targets=classification), batch_idx=number of the cycle
         #get data to cuda
@@ -146,6 +148,7 @@ for epoch in range(num_epochs):
         #gradient descent 
         optimizer.step()
 
+end = time.time()
 #file= 'model.pth'
 #torch.save(model, file)
 

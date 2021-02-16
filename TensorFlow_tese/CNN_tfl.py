@@ -2,6 +2,7 @@ import numpy as np
 import tensorflow as tf
 from tensorflow.keras.datasets import cifar10  
 from sklearn.metrics import accuracy_score
+import time
 
 def model_lite():
     with tf.device('/cpu:0'):          #'/gpu:0' or '/TPU:0'
@@ -26,6 +27,8 @@ def model_lite():
         print("out det", output_details[0]['shape'])
         print("input det", output_details[0]['dtype'])
 
+        start = time.time()
+
         interpreter.set_tensor(input_details[0]['index'], x_test)
         interpreter.invoke()
 
@@ -33,6 +36,9 @@ def model_lite():
         predictions_class = np.argmax(predictions, axis=1)
 
         acc = accuracy_score(predictions_class, y_test)
+        end = time.time()
         print(acc)
+        print(f"test time : {end-start}")
 
+start = time
 model_lite()

@@ -1,4 +1,5 @@
 import os
+import time
 
 os.environ["TF_CPP_MIN_LOG_LEVEL"] = "2"
 os.environ['THEANO_FLAGS'] = "device=cuda,force_device=True,floatX=float32"
@@ -86,16 +87,19 @@ model3 = Sequential([
     ]
     )
 
-
+start = time.time()
 model.compile(loss='categorical_crossentropy',
               optimizer='adam',
               metrics=['accuracy'])
 
 print('train')
-model.fit(x_train, y_train, batch_size=32, epochs=10, verbose=1)
+model.fit(x_train, y_train, batch_size=32, epochs=20, verbose=2)
+end = time.time()
 print('test')
-model.evaluate(x_test, y_test, batch_size=32, verbose=2)
+model.evaluate(x_test, y_test, batch_size=10000, verbose=2)
+end2 = time.time()
 
+print(f"train time : {end-start}, test time : {end2-end}")
 
 model.save("my_model")
 

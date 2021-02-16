@@ -6,6 +6,7 @@ import tensorflow as tf
 from tensorflow import keras
 from tensorflow.keras import layers, regularizers
 from tensorflow.keras.datasets import cifar10  
+import time
 
 physical_devices = tf.config.list_physical_devices("GPU")
 #tf.config.experimental.set_memory_growth(physical_devices[0], True)
@@ -100,7 +101,7 @@ def my_model3():
     return model
 
 
-
+start = time.time()
 with tf.device('/gpu:0'):
     model=my_model()
     model.compile(
@@ -110,10 +111,14 @@ with tf.device('/gpu:0'):
     )
 
     print('train')
-    model.fit(x_train, y_train, batch_size=32, epochs=1, verbose=2)
+    model.fit(x_train, y_train, batch_size=32, epochs=20, verbose=2)
+    end = time.time()
     print('test')
-    model.evaluate(x_test, y_test, batch_size=64, verbose=2)
+    model.evaluate(x_test, y_test, batch_size=10000, verbose=2)
+    end2 = time.time()
 
+    print(f"train time : {end-start}, test time : {end2-end}")
+    
 
 model.save("my_model")
 
