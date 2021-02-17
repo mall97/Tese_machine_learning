@@ -1,8 +1,8 @@
 import os
 import time
 
-os.environ["TF_CPP_MIN_LOG_LEVEL"] = "2"
-os.environ['THEANO_FLAGS'] = "device=cuda,force_device=True,floatX=float32"
+#os.environ["TF_CPP_MIN_LOG_LEVEL"] = "2"
+#os.environ['THEANO_FLAGS'] = "device=cuda,force_device=True,floatX=float32"
 
 import theano
 import numpy as np

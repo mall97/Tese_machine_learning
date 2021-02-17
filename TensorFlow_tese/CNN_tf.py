@@ -8,7 +8,7 @@ from tensorflow.keras import layers, regularizers
 from tensorflow.keras.datasets import cifar10  
 import time
 
-physical_devices = tf.config.list_physical_devices("GPU")
+#physical_devices = tf.config.list_physical_devices("GPU")
 #tf.config.experimental.set_memory_growth(physical_devices[0], True)
 
 (x_train, y_train), (x_test, y_test) = cifar10.load_data()

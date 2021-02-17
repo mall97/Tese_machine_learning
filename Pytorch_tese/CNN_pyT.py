@@ -6,7 +6,7 @@ import torch.nn.functional as F
 import torchvision.datasets as datasets
 import torchvision.transforms as transforms
 from torch.utils.data import DataLoader
-from MyDataset import MyDataset
+#from MyDataset import MyDataset
 import time
 
 
@@ -130,6 +130,7 @@ criterion = nn.CrossEntropyLoss()                                # is used for m
 optimizer = optim.Adam(model.parameters(), lr=learning_rate)    #implements various optimization algorithms (Stochastic Optimization)
 
 #Train network
+print("train")
 start = time.time()
 for epoch in range(num_epochs):
     for batch_idx, (data, targets) in enumerate(train_loader):      #train loader divide by image and classification (data=image, targets=classification), batch_idx=number of the cycle
@@ -173,5 +174,9 @@ def check_accuracy(loader, model):
             print(f'{float(num_correct)/float(num_samples)*100:.2f}')
     model.train()
 
+print("test")
 #check_accuracy(train_loader, model)
 check_accuracy(test_loader, model)
+end2 = time.time()
+
+print(f"train time : {end-start}, test time : {end2-end}")
