@@ -118,10 +118,13 @@ num_epochs = 20
 
 #cifar
 cifar_trainset = datasets.CIFAR10(root='./data', train=True, download='True', transform=transforms.ToTensor())
+
 train_loader = DataLoader(dataset=cifar_trainset, batch_size=batch_size, shuffle=True)
+del cifar_trainset
 
 cifar_testset = datasets.CIFAR10(root='./data', train=False, download='True', transform=transforms.ToTensor())
 test_loader = DataLoader(dataset=cifar_testset, batch_size=batch_size, shuffle=True)
+del cifar_testset
 
 #iniatialize network
 model = CNN().to(device)
@@ -133,6 +136,7 @@ optimizer = optim.Adam(model.parameters(), lr=learning_rate)    #implements vari
 print("train")
 start = time.time()
 for epoch in range(num_epochs):
+    print(epoch)
     for batch_idx, (data, targets) in enumerate(train_loader):      #train loader divide by image and classification (data=image, targets=classification), batch_idx=number of the cycle
         #get data to cuda
         data = data.to(device=device)
